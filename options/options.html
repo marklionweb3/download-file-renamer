@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>智能下载重命名 - 设置</title>
+    <style>
+        body {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .setting-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="url"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .pattern-editor {
+            margin-top: 15px;
+        }
+        small {
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+        .api-list {
+            margin-top: 10px;
+        }
+        .api-item {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .api-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .api-item-header h4 {
+            margin: 0;
+        }
+        .delete-btn {
+            background: #dc3545;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        .test-btn {
+            background: #28a745;
+            margin-right: 8px;
+        }
+        .test-btn:hover {
+            background: #218838;
+        }
+        .add-api-btn {
+            margin-top: 10px;
+        }
+        .proxy-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .setting-item {
+            margin-bottom: 10px;
+        }
+        .setting-description {
+            font-size: 0.8em;
+            color: #666;
+        }
+        .save-button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .save-button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .save-button:hover {
+            background: #1557b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="setting-card">
+        <h3>命名规则配置</h3>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="useTimestamp">
+                添加时间戳 (YYYYMMDD)
+            </label>
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="forceEnglish">
+                强制英文文件名
+            </label>
+        </div>
+
+        <div class="pattern-editor">
+            <label for="namePattern">文件名模式</label>
+            <input type="text" id="namePattern" value="{mainTopic}_{siteName}_{date}">
+            <small>可用变量：{mainTopic} {siteName} {date} {timestamp}</small>
+        </div>
+    </div>
+
+    <div class="setting-card">
+        <h3>AI配置</h3>
+        <div class="setting-item" id="enableAIContainer">
+            <label>
+                <input type="checkbox" id="enableAI">
+                启用AI命名
+            </label>
+        </div>
+        <div id="aiConfigOptions" style="display: none;">
+            <div class="setting-item">
+                <label>
+                    默认AI服务:
+                    <select id="defaultAIService">
+                        <!-- 选项将由JavaScript动态填充 -->
+                    </select>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    AI响应容忍度（秒）:
+                    <input type="number" id="aiTimeout" min="1" max="30" value="3" style="width: 60px;">
+                </label>
+                <div class="setting-description">设置等待AI响应的最长时间（1-30秒），超过此时间将使用本地命名策略</div>
+            </div>
+
+            <div id="aiSettings">
+                <div id="apiList" class="api-list">
+                    <!-- API配置项会动态添加到这里 -->
+                </div>
+
+                <button id="addApiBtn" class="add-api-btn">添加新的API配置</button>
+
+                <div class="proxy-section">
+                    <h4>代理设置</h4>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="enableProxy">
+                            启用代理
+                        </label>
+                    </div>
+                    
+                    <div id="proxySettings" style="display: none;">
+                        <div class="form-group">
+                            <label for="proxyType">代理类型</label>
+                            <select id="proxyType">
+                                <option value="http">HTTP</option>
+                                <option value="https">HTTPS</option>
+                                <option value="socks5">SOCKS5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proxyHost">代理主机</label>
+                            <input type="text" id="proxyHost" placeholder="例如：127.0.0.1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proxyPort">代理端口</label>
+                            <input type="text" id="proxyPort" placeholder="例如：7890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proxyAuth">认证信息（可选）</label>
+                            <input type="text" id="proxyUsername" placeholder="用户名">
+                            <input type="password" id="proxyPassword" placeholder="密码">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-card">
+        <h3>存储设置</h3>
+        <button id="chooseFolder">选择默认下载目录</button>
+        <div id="currentPath"></div>
+    </div>
+
+    <div class="save-button-container">
+        <button class="save-button" id="saveButton">保存设置</button>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

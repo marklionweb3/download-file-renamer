@@ -1,0 +1,26 @@
+{
+  "appName": {
+    "message": "智能下载文件重命名工具",
+    "description": "扩展程序名称"
+  },
+  "appDesc": {
+    "message": "根据网页内容智能重命名下载文件",
+    "description": "扩展程序描述"
+  },
+  "timestampOption": {
+    "message": "添加时间戳",
+    "description": "时间戳选项"
+  },
+  "savePathLabel": {
+    "message": "选择默认下载目录",
+    "description": "保存路径标签"
+  },
+  "apiKeyLabel": {
+    "message": "API密钥",
+    "description": "API密钥标签"
+  },
+  "apiEndpointLabel": {
+    "message": "API端点",
+    "description": "API端点标签"
+  }
+} 

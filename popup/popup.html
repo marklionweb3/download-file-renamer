@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>下载管理</title>
+    <style>
+        body {
+            width: 400px;
+            padding: 16px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .download-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .download-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .download-item:hover {
+            background: #f5f5f5;
+        }
+        .filename {
+            font-weight: 500;
+            word-break: break-all;
+        }
+        .meta {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            gap: 8px;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        button {
+            padding: 4px 8px;
+            border: none;
+            background: #1a73e8;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+        .settings-btn {
+            background: transparent;
+            color: #1a73e8;
+            border: 1px solid #1a73e8;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 32px;
+            color: #666;
+        }
+        .batch-info {
+            font-size: 12px;
+            color: #1a73e8;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>下载历史</h2>
+        <button class="settings-btn" id="openSettings">设置</button>
+    </div>
+    
+    <div id="batchInfo" class="batch-info" style="display: none;">
+        正在进行批量下载...
+    </div>
+
+    <div id="downloadList" class="download-list">
+        <!-- 下载记录将通过JavaScript动态添加 -->
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display: none;">
+        暂无下载记录
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+// _locales/en/messages.json
+{
+    "appName": {
+      "message": "Smart Download Renamer",
+      "description": "Extension name"
+    },
+    "appDesc": {
+      "message": "Intelligently rename downloaded files based on webpage content",
+      "description": "Extension description"
+    },
+    "timestampOption": {
+      "message": "Add timestamp",
+      "description": "Timestamp option"
+    },
+    "savePathLabel": {
+      "message": "Choose default download directory",
+      "description": "Save path label"
+    },
+    "apiKeyLabel": {
+      "message": "API Key",
+      "description": "API key label"
+    },
+    "apiEndpointLabel": {
+      "message": "API Endpoint",
+      "description": "API endpoint label"
+    }
+  }
